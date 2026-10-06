@@ -167,15 +167,17 @@ jobs:
           )
           echo "modules=$modules"
           echo "modules=$modules" >> "$GITHUB_OUTPUT"
-      - name: Replay modules with leanchecker --fresh
+      # `--fresh` re-checks every constant in the import closure, Mathlib
+      # included, and accepts a single module, so it runs once on `Solution`
+      # (which imports the package). The incremental replay then re-checks the
+      # declarations of every audited module, including lemma files outside
+      # that closure, against their imports.
+      - name: Replay Solution and its imports with leanchecker --fresh
+        run: time lake env leanchecker --fresh Solution
+      - name: Replay audited modules with leanchecker
         env:
           MODULES: ${{ steps.modules.outputs.modules }}
-        run: |
-          for module in $MODULES; do
-            echo "::group::leanchecker --fresh $module"
-            time lake env leanchecker --fresh "$module"
-            echo "::endgroup::"
-          done
+        run: time lake env leanchecker $MODULES
       - name: Audit declarations
         env:
           MODULES: ${{ steps.modules.outputs.modules }}

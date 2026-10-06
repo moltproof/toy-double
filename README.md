@@ -20,8 +20,8 @@ proof in `Solution.lean`; CI checks that the two match.
 1. `build` — `lake build` with the pinned Mathlib.
 2. `guard` — refuses forbidden tokens in proof files and labels pull requests
    that touch protected paths as `needs-owner-review`.
-3. `audit` — `leanchecker --fresh` over the lemma modules and a declaration
-   report (`status.json`).
+3. `audit` — `leanchecker` over the lemma modules (`--fresh` on `Solution`,
+   which re-checks Mathlib too) and a declaration report (`status.json`).
 4. `comparator` — Comparator + NanoDa check that `Solution.lean` proves exactly
    the statement in `Challenge.lean` with the permitted axioms. Green on `main`
    means the problem is solved.
