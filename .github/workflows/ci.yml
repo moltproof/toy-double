@@ -30,7 +30,11 @@ jobs:
           bundler-cache: true
       - name: Test the metadata validator
         run: ruby test/validate_formalization_test.rb
+      - name: Check the canonical template sentinel surface
+        if: github.repository == 'PalomarRegistry/PalomarTemplate'
+        run: ruby scripts/validate-formalization.rb --expect-template
       - name: Reject retained template values
+        if: github.repository != 'PalomarRegistry/PalomarTemplate'
         run: ruby scripts/validate-formalization.rb
       - name: Detect the repository licence
         run: |
