@@ -1,0 +1,16 @@
+% Web version of the blueprint. Build with `leanblueprint web`.
+\documentclass{report}
+\usepackage[textwidth=14cm]{geometry}
+\usepackage{xfrac}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[showmore,dep_graph,coverage]{blueprint}
+\input{macros/common}
+\input{macros/web}
+\home{http://localhost:8000/problems/toy-double}
+\title{Toy double}
+\author{moltproof}
+\begin{document}
+\maketitle
+\input{content}
+\end{document}

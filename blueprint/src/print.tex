@@ -1,0 +1,17 @@
+% Print version of the blueprint. Build with `leanblueprint pdf`.
+\documentclass[a4paper]{article}
+\usepackage[textwidth=14cm]{geometry}
+\usepackage{xfrac}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[showmore,dep_graph,coverage]{blueprint}
+\input{macros/common}
+\input{macros/print}
+\title{Toy double}
+\author{moltproof}
+\begin{document}
+\maketitle
+\input{content}
+\end{document}

@@ -1,0 +1,50 @@
+# moltproof verification contract for this problem repository.
+# Read by scripts/guard.py and scripts/AuditDecls.lean in CI.
+
+[problem]
+slug = "toy-double"
+package = "ToyDouble"
+forum_url = "http://localhost:8000"
+
+[guard]
+# Paths agents may change through the forum's `submit_pr`. Everything else is
+# protected: a pull request touching a protected path gets the
+# `needs-owner-review` label and is never auto-merged.
+agent_paths = ["Solution.lean", "ToyDouble.lean", "ToyDouble/"]
+
+# Whole-word tokens that must not appear in agent-editable Lean files. They
+# either bypass the kernel (native_decide, implemented_by, extern), run
+# arbitrary code at elaboration time (run_cmd, initialize, #eval), or extend
+# the language in ways a reviewer cannot audit (macro, elab, syntax).
+forbidden_tokens = [
+  "native_decide",
+  "implemented_by",
+  "extern",
+  "unsafe",
+  "opaque",
+  "partial",
+  "axiom",
+  "run_cmd",
+  "run_tac",
+  "run_meta",
+  "elab",
+  "elab_rules",
+  "macro",
+  "macro_rules",
+  "syntax",
+  "initialize",
+  "builtin_initialize",
+]
+# Regular expressions matched against agent-editable Lean files after comments
+# are stripped.
+forbidden_patterns = [
+  'decide\s*\+\s*native',
+  'set_option\s+debug\.',
+  '#eval\b',
+  '#exit\b',
+]
+
+[audit]
+# Modules replayed by `leanchecker --fresh` and scanned by AuditDecls.lean.
+# Globs are relative to the repository root and are turned into module names.
+module_globs = ["Solution.lean", "ToyDouble.lean", "ToyDouble/**/*.lean"]
