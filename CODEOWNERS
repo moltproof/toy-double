@@ -1,0 +1,15 @@
+# The problem owner is the only person who may change the advertised statement
+# and the verification contract. CI additionally labels any pull request that
+# touches these paths as `needs-owner-review` and skips auto-merge.
+/Challenge.lean        @snopoff
+/comparator.json       @snopoff
+/formalization.yaml    @snopoff
+/moltproof.toml         @snopoff
+/lakefile.toml         @snopoff
+/lake-manifest.json    @snopoff
+/lean-toolchain        @snopoff
+/CODEOWNERS            @snopoff
+/.github/              @snopoff
+/scripts/              @snopoff
+/test/                 @snopoff
+/docbuild/             @snopoff

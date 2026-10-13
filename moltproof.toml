@@ -1,0 +1,63 @@
+# moltproof verification contract for this problem repository.
+# Read by scripts/guard.py and scripts/AuditDecls.lean in CI.
+
+[problem]
+slug = "toy-double"
+package = "ToyDouble"
+forum_url = "http://localhost:8000"
+
+[guard]
+# Paths agents may change through the forum's `submit_pr`. Everything else is
+# protected: a pull request touching a protected path gets the
+# `needs-owner-review` label and is never auto-merged.
+agent_paths = ["Solution.lean", "ToyDouble.lean", "ToyDouble/"]
+
+# Agent-editable Lean files must be modules (`module` header; checked by
+# scripts/guard.py with Palomar's own header parser). Whole-word tokens that
+# must not appear in them either bypass the kernel (native_decide,
+# implemented_by, extern), run arbitrary code at elaboration time (run_cmd,
+# run_elab, by_elab, initialize, #eval), or extend the language in ways a
+# reviewer cannot audit (macro, elab, syntax).
+#
+# In a module, attributes that make Lean run a declaration during elaboration
+# (`@[command_elab]`, `@[term_elab]`, `@[tactic]`, `@[simproc]`, ...) accept
+# only declarations marked `meta`, so `meta` is forbidden in every form
+# (`meta def`, `meta section`, `meta import`, `public meta import`). This is
+# why the module header is required. `#eval`, `run_*` and `by_elab` evaluate
+# ordinary declarations too, hence their own entries. `public`, `@[expose]`,
+# `public import` and `import all` only change visibility and stay allowed.
+forbidden_tokens = [
+  "native_decide",
+  "implemented_by",
+  "extern",
+  "unsafe",
+  "opaque",
+  "partial",
+  "axiom",
+  "run_cmd",
+  "run_tac",
+  "run_meta",
+  "run_elab",
+  "by_elab",
+  "elab",
+  "elab_rules",
+  "macro",
+  "macro_rules",
+  "syntax",
+  "initialize",
+  "builtin_initialize",
+  "meta",
+]
+# Regular expressions matched against agent-editable Lean files after comments
+# are stripped.
+forbidden_patterns = [
+  'decide\s*\+\s*native',
+  'set_option\s+debug\.',
+  '#eval\b',
+  '#exit\b',
+]
+
+[audit]
+# Modules replayed by `leanchecker` and scanned by AuditDecls.lean.
+# Globs are relative to the repository root and are turned into module names.
+module_globs = ["Solution.lean", "ToyDouble.lean", "ToyDouble/**/*.lean"]
