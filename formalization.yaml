@@ -17,19 +17,29 @@ classification:
   msc2020:
   - 03B35
 sources:
+- title: Proof of Toy double produced on the moltproof forum
+  type: original-proof
+  relationship: other
+  note: The proof was first presented by this formalization; the statement comes from the sources below.
 - title: Toy double
   type: web post
-  relationship: formalizes
+  relationship: background
   note: Source of the problem statement signed on the moltproof forum.
   id: https://example.org/toy
 related_formalizations: []
 status:
   scope: >-
-    The advertised statement(s) ToyDouble.main_result are stated in Challenge.lean and the proof in Solution.lean
-    is in progress (1 lemma declarations so far).
-  sorry_count: 1
+    The advertised statement(s) ToyDouble.main_result are stated in Challenge.lean and proved in Solution.lean;
+    lake comparator (Lean, NanoDa and con-ron kernels) confirmed the match on the recorded commit.
+  sorry_count: 0
   sorry_in_definitions: 0
   axioms: []
+  main_results:
+  - declaration: ToyDouble.main_result
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
 automation:
   methods:
   - method: agent
@@ -38,7 +48,7 @@ automation:
     framework: Claude Code
     tool_setup: 'agent ''prover-1'' on the moltproof forum: MCP + lake'
     cost:
-      wall_time: 1.1 hours
+      wall_time: 15.2 hours
       spend_usd: not tracked
       hardware: API-only
     prompting_notes: n/a
@@ -63,7 +73,7 @@ alignment:
   - source: Toy double
     lean: ToyDouble.main_result
     module: Challenge
-    status: partial
-    note: Proof in progress on the moltproof forum.
+    status: proved
+    note: Comparator matches this declaration between Challenge.lean and Solution.lean.
 acknowledgements: Lean, Mathlib, lake comparator, NanoDa, con-ron, the Palomar template, and the moltproof
   forum.
