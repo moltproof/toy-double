@@ -7,10 +7,10 @@ project:
   description: >-
     Toy double
   authors:
-  - pasha
+  - Pavel Snopov
   license: Apache-2.0
   responsible_maintainers:
-  - pasha
+  - Pavel Snopov
 classification:
   arxiv:
   - math.HO
@@ -27,7 +27,7 @@ status:
   scope: >-
     The advertised statement(s) ToyDouble.main_result are stated in Challenge.lean and the proof in Solution.lean
     is in progress (0 lemma declarations so far).
-  sorry_count: 0
+  sorry_count: 1
   sorry_in_definitions: 0
   axioms: []
 automation:
