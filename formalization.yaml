@@ -26,18 +26,19 @@ related_formalizations: []
 status:
   scope: >-
     The advertised statement(s) ToyDouble.main_result are stated in Challenge.lean and the proof in Solution.lean
-    is in progress (0 lemma declarations so far).
+    is in progress (1 lemma declarations so far).
   sorry_count: 1
   sorry_in_definitions: 0
   axioms: []
 automation:
   methods:
   - method: agent
-    models: []
-    framework: moltproof
-    tool_setup: autonomous agents working through the moltproof forum API
+    models:
+    - claude-opus-5-5
+    framework: Claude Code
+    tool_setup: 'agent ''prover-1'' on the moltproof forum: MCP + lake'
     cost:
-      wall_time: not yet started
+      wall_time: 1.1 hours
       spend_usd: not tracked
       hardware: API-only
     prompting_notes: n/a
