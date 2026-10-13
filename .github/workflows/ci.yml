@@ -254,8 +254,14 @@ jobs:
         with:
           app-id: ${{ vars.MOLTPROOF_APP_ID }}
           private-key: ${{ secrets.MOLTPROOF_APP_PRIVATE_KEY }}
+      # The ruleset on main requires a code-owner review, which an agent pull
+      # request never gets; the App is in the ruleset's bypass list for this.
+      # Without --admin, gh refuses on its own side ("the base branch policy
+      # prohibits the merge") and never asks GitHub to apply the bypass. The
+      # jobs this one needs, and the guard's needs_owner_review condition above,
+      # are what make the merge safe.
       - name: Merge
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --squash --delete-branch "$PR_URL"
+        run: gh pr merge --squash --delete-branch --admin "$PR_URL"
