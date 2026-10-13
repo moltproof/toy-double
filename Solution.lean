@@ -22,4 +22,4 @@ natural number by addition agrees with multiplication by two.
 
 /-- Adding a natural number to itself equals multiplying it by two. -/
 theorem ToyDouble.main_result (n : ℕ) : n + n = 2 * n := by
-  sorry
+  exact ToyDouble.add_self_eq_two_mul n
